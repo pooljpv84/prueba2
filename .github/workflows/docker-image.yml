@@ -23,6 +23,6 @@ jobs:
         name: publish
         uses: pennsignals/publish_docker-compose@v0.1.0
         with:
-          docker_compose: 'docker-compose.yml'
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          version: '0.2' # optional
+          docker_compose: 'docker-compose.yml' # required
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
