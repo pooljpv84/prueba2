@@ -33,4 +33,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: jvelascon/angular:latest, jvelascon/spring:latest
+          tags: jvelascon/angular:latest , jvelascon/spring:latest
