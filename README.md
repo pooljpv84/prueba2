@@ -1,5 +1,8 @@
-# prueba1
-prueba1 spring y angular
+# prueba 2
+prueba 2 spring y angular
+
+CI GITHUB
+CD AZURE
 
 - Paul Velaco
 - Jhony Llano
