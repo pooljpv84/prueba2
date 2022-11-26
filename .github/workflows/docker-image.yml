@@ -7,14 +7,6 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: isbang/compose-action@v1.4.1
-        with:
-          compose-file: "./docker/docker-compose.yml"
-          down-flags: "--volumes"
-          services: |
-              spring
-              angular
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -27,6 +19,14 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - uses: actions/checkout@v3
+      - uses: isbang/compose-action@v1.4.1
+        with:
+          compose-file: "./docker/docker-compose.yml"
+          down-flags: "--volumes"
+          services: |
+              spring
+              angular
       -
         name: Build and push
         uses: docker/build-push-action@v3
@@ -34,3 +34,4 @@ jobs:
           context: .
           push: true
           tags: jvelascon/angular:latest , jvelascon/spring:latest
+          
