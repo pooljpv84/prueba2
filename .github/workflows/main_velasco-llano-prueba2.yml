@@ -23,14 +23,14 @@ jobs:
       uses: docker/login-action@v1
       with:
         registry: https://index.docker.io/v1/
-        username: ${{ secrets.AzureAppService_ContainerUsername_fbc0dc095fc94f50a10a282dba0d2757 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_22ae833fc3c54e35aefeedad24a534b1 }}
+        username: ${{ secrets.AzureAppService_ContainerUsername_c738fe58553344ce927d8949ccd9ba56 }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_e8ecd11fe2e54d18a77dbf1216c52515 }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_fbc0dc095fc94f50a10a282dba0d2757 }}/angular:${{ github.sha }}
+        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_c738fe58553344ce927d8949ccd9ba56 }}/angular:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'velasco-llano-prueba2'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_d7608980d474428a90d0bc9e07a193bd }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_fbc0dc095fc94f50a10a282dba0d2757 }}/angular:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_5ec6c67bfc1b45db9ffbfbe1700d3d72 }}
+        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_c738fe58553344ce927d8949ccd9ba56 }}/angular:${{ github.sha }}'
