@@ -1,29 +1,24 @@
-name: ci
-on:
-  push:
-    branches:
-      - 'main'
-jobs:
-  docker:
-    runs-on: ubuntu-latest
+name: ci 
+on: 
+  push: 
+    branches: 
+      - 'main' 
+jobs: 
+  docker: 
+    runs-on: ubuntu-latest 
     steps:
-      -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
-      -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-      -
-        name: Login to Docker Hub
-        uses: docker/login-action@v2
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - uses: actions/checkout@v3
-      - uses: isbang/compose-action@v1.4.1
-        with:
-          compose-file: "docker-compose.yml"
-          down-flags: "--volumes"
-          services: |
-            spring
-            angular
+      #- name: Log into registry
+      #  run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin  
+      # Check out the repo    
+      - name: Checkout
+        uses: actions/checkout@v2
+      # Build the images    
+      - name: Build the docker-compose stack  
+        run: docker-compose -f docker-compose.yml build
+      # List images that will be pushed
+      - name: List images
+        run: docker images
+      # Push images
+      #- name: Push images
+      #  run: docker-compose -f examples/helix-basic-aspnetcore/docker-compose.yml -f examples/helix-basic-aspnetcore/docker-compose.override.yml push --ignore-push-failures
+
