@@ -25,4 +25,4 @@ jobs:
         with:
           version: '0.2' # optional
           docker_compose: 'docker-compose.build.yml' # required
-          repo_token: ${{ secrets.SECRET_TOKEN }}"
+          repo_token: ${{ secrets.SECRET_TOKEN }}
