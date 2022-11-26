@@ -27,11 +27,11 @@ jobs:
           services: |
               spring
               angular
-      -
-        name: Build and push
-        uses: docker/build-push-action@v3
+      - 
+        name: publish
+        uses: pennsignals/publish_docker-compose@v0.1.0
         with:
-          context: .
-          push: true
-          tags: jvelascon/angular:latest , jvelascon/spring:latest
+          version: '0.1' # optional
+          docker_compose: 'docker-compose.yml' # required
+          repo_token: "${{ secrets.SECRET_TOKEN }}"
           
