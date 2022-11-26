@@ -19,6 +19,6 @@ jobs:
       - name: List images
         run: docker images
       # Push images
-      #- name: Push images
-      #  run: docker-compose -f examples/helix-basic-aspnetcore/docker-compose.yml -f examples/helix-basic-aspnetcore/docker-compose.override.yml push --ignore-push-failures
+      - name: Push images
+        run: docker-compose -f docker-compose.yml -f push --ignore-push-failures
 
