@@ -1,0 +1,33 @@
+services:
+  spring:
+    image: 'jvelascon/spring:0.1'
+    build:
+      context: venta
+      dockerfile: Dockerfile
+    expose:
+      - "8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://integra-postgres.postgres.database.azure.com:5432/factura
+      - SPRING_DATASOURCE_USERNAME=paul
+      - SPRING_DATASOURCE_PASSWORD=ups12345678@
+    deploy:  
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: "1024M"
+        reservations:
+          cpus: "0.10"
+          memory: 250M
+  angular:
+    image: 'jvelascon/angular:0.1'
+    container_name: angular-service
+    build:
+      context: vista
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - spring
+volumes:
+  db-data:

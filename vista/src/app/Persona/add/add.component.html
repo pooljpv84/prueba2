@@ -1,0 +1,30 @@
+<div class="container col-md-6">
+  <div class="card">
+    <div class="card-header">
+      <h3>Agregar Personas</h3>
+    </div>
+    <div class="card-body">
+      <form action="">
+        <div class="form-group">
+          <label for="">Emisor</label>
+          <input [(ngModel)]="modelPersona.emisor" name="emisor" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="">valor</label>
+          <input [(ngModel)]="modelPersona.valor" name="valor" type="number" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="">Fecha Facturación</label>
+          <input [(ngModel)]="modelPersona.fechaFactura" name="fechaFactura" type="date" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="">Descripción</label>
+          <input [(ngModel)]="modelPersona.descripcion" name="descripcion" type="text" class="form-control">
+        </div>
+        <button (click)="guardar(modelPersona)" class="btn btn-danger">Guardar</button>
+
+      </form>
+    </div>
+  </div>
+</div>
+
