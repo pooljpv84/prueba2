@@ -9,3 +9,4 @@ RUN npm run build
 FROM nginx:alpine
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=build /usr/src/app/dist/vista /usr/share/nginx/html
+RUN npm run test
