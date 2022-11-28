@@ -1,0 +1,37 @@
+
+name: GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14.x
+
+      - name: Cache1
+        run: npm install -g npm@latest
+      - name: Cache2
+        run: npm cache clean --force
+      - name: Cache3
+        run: npm rm -rf node_modules && rm package-lock.json
+
+      - name: Install dependencies1
+        run: npm install
+      - name: Install dependencies2
+        run: npm ci
+      - name: Build
+        run: npm run build --if-present
+      - name: Run tests
+        run: npm run build test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+        #--browsers ChromeHeadlessNoSandbox --watch=false
+        #npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
