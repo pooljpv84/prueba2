@@ -9,6 +9,7 @@ jobs:
         with:
           node-version: 16
           cache: 'npm'
-      - run: npm install
-      - run: npm ci
-      - run: npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+          cache-dependency-path: ./vista/package-lock.json
+      - run: 'npm install'
+      - run: 'npm ci'
+      - run: 'npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI'
