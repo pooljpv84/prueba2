@@ -10,6 +10,8 @@ jobs:
           node-version: 16
           cache: 'npm'
           cache-dependency-path: vista/package-lock.json
+      - name: Install
+        run: npm install
       - name: Setup
         run: npm ci
       - name: Test
