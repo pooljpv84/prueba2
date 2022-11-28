@@ -9,9 +9,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ng-toolkit
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -19,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 14.x
 
       - name: Cache1
         run: npm install -g npm@latest
