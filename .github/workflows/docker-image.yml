@@ -6,7 +6,7 @@ name: Build and deploy container app to Azure Web App - llano-velasco-prueba
 on:
   push:
     branches:
-      - maine
+      - main
   workflow_dispatch:
 
 jobs:
