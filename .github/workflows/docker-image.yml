@@ -40,13 +40,9 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: |
-        if [ -e yarn.lock ]; then
-        yarn install --frozen-lockfile
-        elif [ -e package-lock.json ]; then
-        npm ci
-        else
-        npm i
-        fi
+        - name: Install npm dependencies
+          run: npm install
+        - name: npm init
+          run: npm init -y
     - run: npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
     - run: 'docker-compose push'
