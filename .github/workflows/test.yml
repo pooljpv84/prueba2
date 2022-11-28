@@ -18,8 +18,8 @@ jobs:
         with:
           node-version: 16
 
-      - name: Install dependencies01
-        run: npm install
+      - name: Install cache
+        run: npm cache clean
       - name: Install dependencies02
         run: npm install
       - name: Install dependencies
