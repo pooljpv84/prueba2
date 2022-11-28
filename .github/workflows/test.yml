@@ -22,13 +22,15 @@ jobs:
         run: npm install -g npm@latest
       - name: Cache2
         run: npm cache clean --force
-#      - name: Cache3
-#        run: npm rm -rf node_modules && rm package-lock.json
+      - name: Cache3
+        run: npm rm -rf node_modules && rm package-lock.json
       - name: Install dependencies1
         run: npm install
       - name: Install dependencies2
         run: npm ci
       - name: Build
         run: npm run build --if-present
+      - name: isntall test
+          run: npm install-test
       - name: Run tests
         run: npm test #-- --no-watch --no-progress --browsers=ChromeHeadlessCI
