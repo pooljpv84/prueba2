@@ -25,7 +25,14 @@ jobs:
           node-version: 16.x
           cache: npm
           cache-dependency-path: ./vista/package-lock.json
-      - run: npm ci
+      - run: |
+          if [ -e yarn.lock ]; then
+          yarn install --frozen-lockfile
+          elif [ -e package-lock.json ]; then
+          npm ci
+          else
+          npm i
+          fi
       - run: npm run build
       - run: npm run format-check
       - run: npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
