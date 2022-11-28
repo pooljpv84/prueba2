@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 14.x
+          node-version: 12.x
 
       - name: Cache1
         run: npm install -g npm@latest
@@ -31,4 +31,4 @@ jobs:
       - name: Build
         run: npm run build --if-present
       - name: Run tests
-        run: npm run test #-- --no-watch --no-progress --browsers=ChromeHeadlessCI
+        run: npm test #-- --no-watch --no-progress --browsers=ChromeHeadlessCI
