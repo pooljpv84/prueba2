@@ -1,38 +1,16 @@
-name: build-test
-
-on:
-  pull_request:
-    paths-ignore:
-      - '**.md'
-  push:
-    branches:
-      - main
-      - releases/*
-    paths-ignore:
-      - '**.md'
-
+name: CI
+on: push
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
+  unit-tests:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node 16.x
-        uses: actions/setup-node@v3
+      - name: Clone
+        uses: actions/checkout@v3
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v1
         with:
           node-version: 16.x
-          cache: npm
-          cache-dependency-path: ./vista/package.json
-      - run: |
-          if [ -e yarn.lock ]; then
-          yarn install --frozen-lockfile
-          elif [ -e package-lock.json ]; then
-          npm ci
-          else
-          npm i
-          fi
-      - run: npm run build
-      - run: npm run format-check
-      - run: npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+      - name: Setup
+        run: npm ci
+      - name: Test
+        run: npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
