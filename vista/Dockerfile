@@ -5,7 +5,7 @@ COPY package.json package-lock.json ./
 RUN npm install
 COPY . .
 RUN npm run build
-RUN npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+RUN npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
 ### STAGE 2: Run ###
 FROM nginx:alpine
 COPY nginx.conf /etc/nginx/nginx.conf
