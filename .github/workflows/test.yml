@@ -1,25 +1,36 @@
-name: CI
-on: push
+name: Continuous Integration # Nombre del workflow
+
+on: # ¿Cuando ejecutar?
+  push: # Al hacer push a las siguientes ramas
+    branches: [main] # o master
+  pull_request: # Al crear un pull request a las siguientes ramas
+    branches: [main] # o master
+
 jobs:
-  unit-tests:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: [ 16 ]
-    name: Node ${{ matrix.node }} sample
+  ci:
+    name: Continuous Integration # Nombre del Job
+    runs-on: ubuntu-latest # Ejecutar en Ubuntu
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup node
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v2 # Clonar repositorio actual
+      - uses: actions/setup-node@v1 # Usar Node
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 12 # Versión de Node
+      # Cargar cache de node_modules, para reducir tiempo de instalación en próximas ejecuciones
+      - name: Cache node modules
+        id: node-cache # Id del cache
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          # Se usará el mismo cache siempre y cuando sea el mismo sistema operativo y no existan cambios en el archivo package-lock
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      # Instalar dependencias
       - name: Install dependencies
-        run: |
-          if [ -e yarn.lock ]; then
-          yarn install --frozen-lockfile
-          elif [ -e package-lock.json ]; then
-          npm ci
-          else
-          npm i
-          fi
-      - run: npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+        # No ejecutar si se obtuvo node_modules de cache
+        if: steps.node-cache.outputs.cache-hit != 'true'
+        run: npm install
+      # Generar compilación de producción
+      - name: Run Build command
+        run: npm run build -- --prod
+      # Ejecutar pruebas unitarias
+      - name: Run Unit tests
+      - run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
