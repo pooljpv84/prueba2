@@ -1,33 +1,30 @@
-name: Continuous Integration # Nombre del workflow
+name: build-test
 
-on: # ¿Cuando ejecutar?
-  push: # Al hacer push a las siguientes ramas
-    branches: [main] # o master
-  pull_request: # Al crear un pull request a las siguientes ramas
-    branches: [main] # o master
+on:
+  pull_request:
+    paths-ignore:
+      - '**.md'
+  push:
+    branches:
+      - main
+      - releases/*
+    paths-ignore:
+      - '**.md'
 
 jobs:
-  ci:
-    name: Continuous Integration # Nombre del Job
-    runs-on: ubuntu-latest # Ejecutar en Ubuntu
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
     steps:
-      - uses: actions/checkout@v2 # Clonar repositorio actual
-      - uses: actions/setup-node@v1 # Usar Node
+      - uses: actions/checkout@v3
+      - name: Setup Node 16.x
+        uses: actions/setup-node@v3
         with:
-          node-version: 16 # Versión de Node
-      # Cargar cache de node_modules, para reducir tiempo de instalación en próximas ejecuciones
-      - name: Cache node modules
-        id: node-cache # Id del cache
-        uses: actions/cache@v1
-        with:
-          path: node_modules
-          # Se usará el mismo cache siempre y cuando sea el mismo sistema operativo y no existan cambios en el archivo package-lock
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-      # Instalar dependencias
-      - name: Install dependencies
-        # No ejecutar si se obtuvo node_modules de cache
-        if: steps.node-cache.outputs.cache-hit != 'true'
-        run: npm install
-      # Ejecutar pruebas unitarias
-      - name: Run Unit tests
+          node-version: 16.x
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - run: npm run format-check
       - run: npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
