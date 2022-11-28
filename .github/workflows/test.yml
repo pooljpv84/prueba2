@@ -22,8 +22,8 @@ jobs:
         run: npm install -g npm@latest
       - name: Cache2
         run: npm cache clean --force
-      - name: Cache3
-        run: npm rm -rf node_modules && rm package-lock.json
+#      - name: Cache3
+#        run: npm rm -rf node_modules && rm package-lock.json
       - name: Install dependencies1
         run: npm install
       - name: Install dependencies2
