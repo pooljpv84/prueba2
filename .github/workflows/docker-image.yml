@@ -35,4 +35,12 @@ jobs:
         services: |
           spring
           angular
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: npm ci
+    - run: npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+    - run: npm run lint
     - run: 'docker-compose push'
