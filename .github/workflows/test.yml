@@ -18,11 +18,15 @@ jobs:
         with:
           node-version: 16
 
-      - name: Install cache
-        run: npm cache clean
-      - name: Install dependencies02
+      - name: Cache1
+        run: npm install -g npm@latest
+      - name: Cache2
+        run: npm cache clean --force
+      - name: Cache3
+        run: npm rm -rf node_modules && rm package-lock.json
+      - name: Install dependencies1
         run: npm install
-      - name: Install dependencies
+      - name: Install dependencies2
         run: npm ci
       - name: Run tests
         run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
