@@ -18,8 +18,11 @@ jobs:
         with:
           node-version: 16
 
+      - name: Install dependencies01
+        run: npm install
+      - name: Install dependencies02
+        run: npm install
       - name: Install dependencies
         run: npm ci
-
       - name: Run tests
         run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
