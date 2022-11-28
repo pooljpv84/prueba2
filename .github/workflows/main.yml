@@ -26,7 +26,7 @@ jobs:
         run: npm rm -rf node_modules && rm package-lock.json
 
       - name: Install dependencies1
-        run: npm install
+        run: npm install npm -g
       - name: Install dependencies2
         run: npm ci
       - name: Build
