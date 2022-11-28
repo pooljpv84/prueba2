@@ -32,5 +32,5 @@ jobs:
       - name: Build
         run: npm run build --if-present
       - name: Run tests
-        run: npm test --browsers ChromeHeadlessNoSandbox --watch=false
+        run: npm test #--browsers ChromeHeadlessNoSandbox --watch=false
         #npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
