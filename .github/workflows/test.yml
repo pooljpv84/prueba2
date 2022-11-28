@@ -29,4 +29,4 @@ jobs:
       - name: Install dependencies2
         run: npm ci
       - name: Run tests
-        run: npm run test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
+        run: npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI
