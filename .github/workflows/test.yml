@@ -16,7 +16,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest]
     steps:
       - uses: actions/checkout@v3
       - name: Setup Node 16.x
@@ -24,6 +24,7 @@ jobs:
         with:
           node-version: 16.x
           cache: npm
+          cache-dependency-path: ./vista/package-lock.json
       - run: npm ci
       - run: npm run build
       - run: npm run format-check
